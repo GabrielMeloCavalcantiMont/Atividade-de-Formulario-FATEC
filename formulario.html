@@ -1,0 +1,61 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário</title>
+
+    <script type="text/javascript">
+        function validarFormulario(event) {
+            //Previne o envio automático dos formulário, para poder validar os dados primeiro
+            event.preventDefault();
+    
+            let nome = document.forms["meuFormulario"]["nome"].value;
+            let idade = document.forms["meuFormulario"]["idade"].value;
+            let escolaridade = document.forms["meuFormulario"]["escolaridade"].value;
+            let fumante = document.querySelector('input[name="fumante"]:checked');
+            let preferencias = document.querySelectorAll('input[name="preferencias"]:checked');
+    
+            if (nome === "" || idade === "" || escolaridade === "" || !fumante || preferencias.length === 0) {
+                alert("Por favor, preencha todos os campos.");
+                return false; //Impede o envio do formulário
+            }
+    
+            let preferenciasSelecionadas = [];
+            preferencias.forEach(function(p) {
+                preferenciasSelecionadas.push(p.value); //Add o valor de cada preferência selecionada na lista
+            })
+    
+            let url = `receber.html?nome=${encodeURIComponent(nome)}&idade=${encodeURIComponent(idade)}
+            &escolaridade=${encodeURIComponent(escolaridade)}&fumante=${encodeURIComponent(fumante.value)}
+            &preferencias=${encodeURIComponent(preferenciasSelecionadas.join(", "))}`;
+            window.location.href = url;
+        }
+        
+    </script>
+</head>
+<body>
+    <h2>Formulário de Cadastro</h2>
+    <form name="meuFormulario" onsubmit="validarFormulario(event)">
+        Nome <input type="text" name="nome"><br><br>
+        Idade <input type="number" name="idade"><br><br>
+        Escolaridade:
+        <select name="escolaridade">
+            <option value="">Selecione</option>
+            <option value="Fundamental">Fundamental</option>
+            <option value="Médio">Médio</option>
+            <option value="Superior">Superior</option>
+        </select><br><br>
+
+        Fumante? 
+        <input type="radio" name="fumante" value="Sim"/> Sim
+        <input type="radio" name="fumante" value="Não"/> Não<br><br>
+
+        Preferências:<br>
+        <input type="checkbox" value="esportes" name="preferencias">Esportes<br>
+        <input type="checkbox" value="Música" name="preferencias">Música<br>
+        <input type="checkbox" value="leitura" name="preferencias">Leitura<br><br>
+
+        <input type="submit" value="Enviar"/>
+
+    </form>
+</body>
+</html>

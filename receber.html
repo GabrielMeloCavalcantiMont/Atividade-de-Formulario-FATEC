@@ -1,0 +1,23 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dados Recebidos</title>
+    <script type="text/javascript">
+        function obterParametros() {
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById("dados").innerHTML = `
+            <p><stront>Nome:</strong> ${params.get("nome")}</p>
+            <p><stront>Idade:</strong> ${params.get("idade")}</p>
+            <p><stront>Escolaridade:</strong> ${params.get("escolaridade")}</p>
+            <p><stront>Fumante:</strong> ${params.get("fumante")}</p>
+            <p><stront>Preferências:</strong> ${params.get("preferencias")}</p>
+            `;
+        }
+
+        window.onload = obterParametros;
+    </script>
+</head>
+<body>
+    <div id="dados"></div>
+</body>
+</html>
